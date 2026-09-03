@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Transactions</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#202124}
+body{overflow-x:hidden}
+.app{width:100%;max-width:760px;margin:auto;min-height:100vh}
+.header{background:#f6f8ff;padding:16px 0 0}
+.search-container{padding:0 47px}
+.search-box{height:94px;width:100%;border:2px solid #777;border-radius:50px;display:flex;align-items:center;padding:0 27px;background:#f9faff}
+.back{font-size:52px;font-weight:300;line-height:1;margin-right:29px;margin-top:-8px}
+.search-input{border:none;outline:none;background:transparent;flex:1;font-size:31px;color:#3c4043}
+.search-input::placeholder{color:#444}
+.menu{font-size:42px;line-height:20px;letter-spacing:3px;transform:rotate(90deg);cursor:pointer}
+.filters-wrapper{overflow-x:auto;padding:44px 47px 38px;scrollbar-width:none}
+.filters-wrapper::-webkit-scrollbar{display:none}
+.filters{display:flex;gap:31px;width:max-content}
+.filter{height:67px;padding:0 24px;border:2px solid #d0d0d0;border-radius:16px;background:white;display:flex;align-items:center;gap:45px;font-size:24px;color:#444;cursor:pointer;white-space:nowrap}
+.filter:hover{background:#f5f5f5}
+.down-arrow{width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:8px solid #333}
+.month-section{background:#f7f8fc;min-height:155px;padding:34px 47px;display:flex;justify-content:space-between;align-items:center}
+.year{font-size:23px;color:#444;margin-bottom:7px}
+.month{font-size:43px;font-weight:400}
+.month-total{font-size:37px;color:#202124;white-space:nowrap}
+.month-total.green{color:#23803d}
+.transactions{background:white}
+.transaction{min-height:145px;padding:24px 47px;display:flex;align-items:center;transition:background .15s}
+.transaction:hover{background:#fafafa}
+.avatar{width:80px;height:80px;border-radius:50%;display:flex;justify-content:center;align-items:center;color:white;font-size:34px;flex-shrink:0;border:1px solid #ddd;margin-right:31px}
+.avatar-r{background:#0c9dab}.avatar-s{background:#99847b}.avatar-a{background:#5431b9}.avatar-k{background:#005f54}.avatar-m{background:#a846bd}.avatar-p{background:#7520a5}.avatar-md{background:#c83a12}
+.avatar-md span{font-size:28px}
+.transaction-info{flex:1;min-width:0}
+.person{font-size:29px;font-weight:500;margin-bottom:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.date{font-size:24px;color:#444}
+.amount{font-size:29px;font-weight:500;white-space:nowrap;margin-left:15px}
+.received{color:#237a3b}.paid{color:#202124}
+.no-results{display:none;padding:50px 20px;text-align:center;font-size:20px;color:#777}
+@media(max-width:600px){
+.search-container{padding:0 47px}.search-box{height:95px;padding:0 25px}.back{font-size:48px;margin-right:26px}.search-input{font-size:29px}.menu{font-size:38px}
+.filters-wrapper{padding-left:47px;padding-right:0;padding-top:43px;padding-bottom:37px}.filter{height:67px;font-size:23px}
+.month-section{padding-left:47px;padding-right:47px;min-height:156px}.month{font-size:41px}.month-total{font-size:34px}
+.transaction{padding:24px 47px;min-height:145px}.avatar{width:80px;height:80px;margin-right:29px}.person{font-size:27px}.date{font-size:23px}.amount{font-size:27px}
+}
+@media(max-width:430px){
+.search-container{padding:0 20px}.search-box{height:70px;padding:0 17px}.back{font-size:40px;margin-right:18px}.search-input{font-size:21px}.menu{font-size:30px}
+.filters-wrapper{padding-left:20px}.filter{height:60px;font-size:19px;gap:30px}
+.month-section{padding:25px}.year{font-size:19px}.month{font-size:32px}.month-total{font-size:27px}
+.transaction{padding:20px 25px;min-height:125px}.avatar{width:64px;height:64px;margin-right:20px;font-size:28px}.avatar-md span{font-size:22px}
+.person{font-size:21px}.date{font-size:18px}.amount{font-size:21px;margin-left:8px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<header class="header">
+<div class="search-container">
+<div class="search-box">
+<div class="back">‹</div>
+<input type="text" id="searchInput" class="search-input" placeholder="Search transactions">
+<div class="menu">•••</div>
+</div>
+</div>
+
+<div class="filters-wrapper">
+<div class="filters">
+<button class="filter">Status <span class="down-arrow"></span></button>
+<button class="filter">Payment method <span class="down-arrow"></span></button>
+<button class="filter">Date <span class="down-arrow"></span></button>
+</div>
+</div>
+</header>
+
+<section class="month-section">
+<div><div class="year">2026</div><div class="month">September</div></div>
+<div class="month-total">₹500</div>
+</section>
+
+<section class="transactions">
+<div class="transaction">
+<div class="avatar avatar-md"><span>MD</span></div>
+<div class="transaction-info"><div class="person">MD TARIK</div><div class="date">2 September</div></div>
+<div class="amount">₹400</div>
+</div>
+
+<div class="transaction">
+<div class="avatar avatar-md"><span>MD</span></div>
+<div class="transaction-info"><div class="person">MD TARIK</div><div class="date">2 September</div></div>
+<div class="amount">₹100</div>
+</div>
+</section>
+
+<section class="month-section">
+<div><div class="year">2026</div><div class="month">August</div></div>
+<div class="month-total green">+ ₹4,421</div>
+</section>
+
+<section class="transactions">
+
+<div class="transaction">
+<div class="avatar avatar-r">R</div>
+<div class="transaction-info"><div class="person">RINKI OJHA</div><div class="date">22 August</div></div>
+<div class="amount received">+ ₹1,440</div>
+</div>
+
+<div class="transaction">
+<div class="avatar avatar-s">S</div>
+<div class="transaction-info"><div class="person">Shubhi Pandey</div><div class="date">21 August</div></div>
+<div class="amount received">+ ₹200</div>
+</div>
+
+<div class="transaction">
+<div class="avatar avatar-s">S</div>
+<div class="transaction-info"><div class="person">Shubhi Pandey</div><div class="date">21 August</div></div>
+<div class="amount received">+ ₹100</div>
+</div>
+
+<div class="transaction">
+<div class="avatar avatar-a">A</div>
+<div class="transaction-info"><div class="person">ANUPAM KUMAR</div><div class="date">18 August</div></div>
+<div class="amount received">+ ₹1,440</div>
+</div>
+
+<div class="transaction">
+<div class="avatar avatar-k">K</div>
+<div class="transaction-info"><div class="person">Kaushik Katiyar</div><div class="date">14 August</div></div>
+<div class="amount received">+ ₹1</div>
+</div>
+
+<div class="transaction">
+<div class="avatar avatar-m">M</div>
+<div class="transaction-info"><div class="person">MD TARIK</div><div class="date">10 August</div></div>
+<div class="amount received">+ ₹1,440</div>
+</div>
+
+<div class="transaction">
+<div class="avatar avatar-p">P</div>
+<div class="transaction-info"><div class="person">Prince Kumar</div><div class="date">8 August</div></div>
+<div class="amount paid">₹100</div>
+</div>
+
+<div class="transaction">
+<div class="avatar avatar-s">S</div>
+<div class="transaction-info"><div class="person">Shubhi Pandey</div><div class="date">8 August</div></div>
+<div class="amount paid">₹100</div>
+</div>
+
+</section>
+
+<div id="noResults" class="no-results">No transactions found</div>
+</div>
+
+<script>
+const searchInput=document.getElementById("searchInput");
+const transactions=document.querySelectorAll(".transaction");
+const noResults=document.getElementById("noResults");
+
+searchInput.addEventListener("input",function(){
+    const search=this.value.toLowerCase().trim();
+    let found=0;
+
+    transactions.forEach(transaction=>{
+        const text=transaction.innerText.toLowerCase();
+        if(text.includes(search)){
+            transaction.style.display="flex";
+            found++;
+        }else{
+            transaction.style.display="none";
+        }
+    });
+
+    noResults.style.display=(found===0 && search!=="")?"block":"none";
+});
+
+document.querySelectorAll(".filter").forEach(button=>{
+    button.addEventListener("click",()=>{
+        alert("Filter menu\n\nThis is a frontend UI. Connect this button to your own filtering system.");
+    });
+});
+</script>
+
+</body>
+</html>
